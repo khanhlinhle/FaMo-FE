@@ -1,0 +1,93 @@
+body {
+  position: relative;
+}
+
+.banner-part {
+  background: linear-gradient(90deg, #1862ac, #1d488f);
+  padding: 20px 0px 20px 0px;
+}
+
+.banner-text-left {
+  color: white;
+  font-size: 25px;
+  letter-spacing: 2.5px;
+  margin: 0px 0px 0px 40px;
+  text-transform: uppercase;
+}
+
+.famo {
+  color: deeppink;
+  font-weight: bolder !important;
+}
+
+.banner-text {
+  margin: 30px;
+}
+
+.banner-title {
+  color: white;
+  font-size: 80px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.banner-slogan {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: lighter;
+}
+
+.banner-login-button {
+  background-color: #00a23d;
+  border: solid 2px #00a23d;
+  border-radius: 50px;
+  margin: 20px 20px 20px 0px;
+  padding: 15px 30px;
+  width: 25%;
+}
+
+.login-text {
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.banner-create-account-button {
+  background-color: #00a23d;
+  border: solid 2px #00a23d;
+  border-radius: 50px;
+  margin: 20px 0px 20px 0;
+  padding: 15px 30px;
+  width: 25%;
+}
+
+.product-part {
+  padding: 20px 0px 20px 0px;
+}
+
+.body-image {
+  height: 400px;
+}
+
+.body-text {
+  margin-top: 25%;
+  font-size: 20px;
+  text-align: left;
+}
+
+.footer-part {
+  background-color: #002b6a;
+  color: white;
+  position: absolute;
+  height: 25px;
+  width: 100%;
+}
+
+.footer-text {
+  text-transform: uppercase;
+  font-size: 15px;
+  margin-bottom: 0;
+}

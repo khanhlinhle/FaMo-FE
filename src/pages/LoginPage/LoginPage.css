@@ -1,0 +1,201 @@
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: teal;
+}
+
+.form-wrapper {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  box-shadow: 0px 10px 50px #555;
+  background-color: #ffffff;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.create-account-text {
+  text-align: center;
+  width: 100%;
+  font-size: 40px;
+  color: #111;
+  font-weight: lighter;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+label {
+  font-size: 0.8em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+}
+
+input {
+  padding: 10px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #cfcfcf;
+}
+
+input::placeholder {
+  font-size: 1em;
+  font-weight: lighter;
+  color: #999;
+}
+
+.firstName {
+  margin-right: 1%;
+}
+
+.lastName {
+  margin-left: 1%;
+}
+
+.firstName,
+.lastName,
+.email,
+.password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.firstName,
+.lastName {
+  width: 49%;
+}
+
+.email,
+.password {
+  width: 100%;
+}
+
+.createAccount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-account-tab a {
+  color: white;
+  font-weight: bold;
+}
+
+.create-account-tab a:hover {
+  color: #258ea6;
+  background-color: white;
+  font-weight: bold;
+}
+
+.login-button,
+.create-account-button {
+  width: 100%;
+  border-radius: 100px;
+  border: 2px solid;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.social-accounts {
+  width: 100%;
+}
+
+.break-box {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.break-box-left {
+  width: 50%;
+  padding-right: 25px;
+}
+
+.break-box-right {
+  width: 50%;
+  padding-left: 25px;
+}
+
+.break-line-small {
+  margin-top: 8px;
+  border-top: 1px solid #d9dadc;
+  display: block;
+  line-height: 1px;
+  background-color: gray;
+}
+
+.facebook {
+  border: 2px solid #1877f2;
+  border-radius: 100px;
+  color: #1877f2;
+  margin-bottom: 15px;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.facebook:hover {
+  color: white;
+  background-color: #1877f2;
+}
+
+.icon-facebook {
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.google {
+  border: 2px solid #fa5d5d;
+  border-radius: 100px;
+  color: #fa5d5d;
+  margin-bottom: 15px;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.google:hover {
+  color: white;
+  background-color: #fa5d5d;
+}
+
+.icon-google {
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.apple {
+  border: 2px solid black;
+  border-radius: 100px;
+  color: black;
+  margin-bottom: 15px;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.apple:hover {
+  color: white;
+  background-color: black;
+}
+
+.icon-apple {
+  padding-right: 10px;
+  font-size: 20px;
+}
