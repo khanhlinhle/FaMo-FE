@@ -2,8 +2,18 @@ import React from 'react';
 import "./LoginPage.css";
 import { Tab, Button, Tabs } from "react-bootstrap"
 import CreateAccount from './CreateAccount';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import GoogleLogin from 'react-google-login';
 
 export default function LoginPage() {
+    const responseFacebook = (response) => {
+        console.log(response);
+    };
+
+    const responseGoogle = (response) => {
+        console.log(response);
+    };
+
     return (
         <div className="wrapper">
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="create-account-tab">
@@ -51,14 +61,36 @@ export default function LoginPage() {
                                 <div className="break-line-small"></div>
                             </div>
                         </div>
-                        <div className="social-accounts">
-                            <div className="facebook">
-                                <i className="fab fa-facebook-square icon-facebook"></i>
-                                <span>CONNECT WITH FACEBOOK</span>
+                        <div>
+                            <div>
+                                <FacebookLogin
+                                    appId="301690914304040"
+                                    fields="name,email,picture"
+                                    // onClick={componentClicked}
+                                    callback={responseFacebook}
+                                    render={renderProps => (
+                                        <button onClick={renderProps.onClick} className="facebook">
+                                            <i className="fab fa-facebook icon-facebook"></i>
+                                            Connect with Facebook
+                                        </button>
+                                    )}
+                                    buttonText="Connect with Google"
+                                >
+                                </FacebookLogin>
                             </div>
-                            <div className="google">
-                                <i className="fab fa-google icon-google"></i>
-                                <span>CONNECT WITH GOOGLE</span>
+                            <div>
+                                <GoogleLogin
+                                    clientId="934552273757-0ubllrrjsu86i7cg93nikke5amou1qti.apps.googleusercontent.com"
+                                    render={renderProps => (
+                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="google">
+                                            <i className="fab fa-google icon-google"></i>
+                                            Connect with Google
+                                        </button>
+                                    )}
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={"single_host_origin"}
+                                ></GoogleLogin>
                             </div>
                             <div className="apple">
                                 <i className="fab fa-apple icon-apple"></i>
@@ -68,7 +100,7 @@ export default function LoginPage() {
 
                     </div>
                 </Tab>
-            </Tabs>
-        </div>
+            </Tabs >
+        </div >
     )
 }

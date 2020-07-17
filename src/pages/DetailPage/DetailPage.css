@@ -1,0 +1,31 @@
+.nav-link {
+  color: teal !important;
+  background-color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background-color: teal !important;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wallet-part {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8%;
+}
+
+.wallet-button {
+  font-size: 15px !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
