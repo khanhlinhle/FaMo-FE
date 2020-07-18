@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
@@ -9,6 +9,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { ListItemAvatar, Avatar } from '@material-ui/core';
 import { Row, Col, Container } from "react-bootstrap"
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,14 +25,62 @@ const useStyles = makeStyles((theme) => ({
 export default function NestedList() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    const [categoriesList, setCategoriesList] = useState(null);
+
+    useEffect(() => {
+        getCategoriesList()
+    }, []);
 
     const handleClick = () => {
         setOpen(!open);
     };
 
+    const getCategoriesList = async () => {
+        try {
+            const result = await axios.get(`https://localhost:5004/categories`);
+            console.log(result.data.data);
+            setCategoriesList(result.data.data);
+        } catch (error) {
+            return new Error(error.response.message);
+        }
+    }
+
+
     return (
         <Container>
-            <Row>
+            {
+                categoriesList === null ? <h1>Loading</h1> :
+                    <Row>
+                        <Col>
+                            {
+                                categoriesList.filter(c => !c.parent && c.type === "Expense").map(item => {
+                                    item.children = categoriesList.filter(child => child.parent === item._id).map(child => {
+                                        return <div><p> + {child.name}</p></div>
+                                    })
+
+                                    return (
+                                        <div>
+                                            <p>{item.name}</p>
+                                            {item.children}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </Col>
+                        <Col>
+                            {
+                                categoriesList.filter(c => !c.parent && c.type === "Income").map(item => {
+                                    return (
+                                        <div>
+                                            <p>{item.name}</p>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </Col>
+                    </Row>
+            }
+            {/* <Row>
                 <Col lg={6} md={6} s={12} xs={12}>
                     <List
                         component="nav"
@@ -74,7 +123,7 @@ export default function NestedList() {
                         </Collapse>
                     </List>
                 </Col>
-            </Row>
+            </Row> */}
         </Container>
     );
 };

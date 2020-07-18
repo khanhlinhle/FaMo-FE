@@ -12,7 +12,7 @@ export default function Wallet(props) {
                 <Card>
                     <Card.Img variant="top" src="https://image.freepik.com/free-vector/libra-money-currency-with-wallet_36244-323.jpg" className="wallet-icon" />
                     <Card.Body>
-                        <Button variant="primary" className="wallet-button" onClick={() => setWalletModalShow(true)}>Create family wallet</Button>
+                        <Button variant="primary" className="wallet-button" onClick={() => setWalletModalShow(true)}>Create family</Button>
                         <WalletModal
                             show={walletModalShow}
                             onHide={() => setWalletModalShow(false)}

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col, Container } from "react-bootstrap";
 
 export default function ExpenseModal(props) {
+
+    // const addExpense = () => {
+    //     const [wallet, setWallet] = useState("");
+    //     const [amount, setAmount] = useState(0);
+    //     const [category, setCategory] = useState("");
+    //     const [date, setDate] = useState(0);
+    //     const [description, setDescription] = useState("");
+    // };
+
     return (
         <div>
             <Modal

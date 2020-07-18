@@ -1,9 +1,9 @@
-* {
+/* * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
+} */
 
-body {
+.notfound-part {
   padding: 0;
   margin: 0;
 }

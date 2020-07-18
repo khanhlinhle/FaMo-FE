@@ -48,8 +48,9 @@ export default function Account(props) {
                             />
                         </form>
                         <div className="info-button-part">
-                            <Button variant="outline-dark" onClick={props.onHide} className="info-button">Update</Button>
-                            <Button variant="outline-success" onClick={props.onHide} className="info-button">Log out</Button>
+                            <Button variant="outline-info" className="info-button">Create Family</Button>
+                            <Button variant="outline-dark" className="info-button">Update</Button>
+                            <Button variant="outline-success" className="info-button">Log out</Button>
                         </div>
                     </Container>
                 </Col>
