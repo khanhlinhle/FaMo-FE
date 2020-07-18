@@ -26,10 +26,7 @@ export default function HomePage() {
                         </h3>
                             <div>
                                 <Button className="banner-login-button">
-                                    <Link to="/login" className="login-text">Log in</Link>
-                                </Button>
-                                <Button className="banner-create-account-button">
-                                    <Link to="/login" className="login-text">Sign up</Link>
+                                    <Link to="/detail" className="login-text">GET STARTED</Link>
                                 </Button>
                             </div>
                         </Col>

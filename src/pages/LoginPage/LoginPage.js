@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import "./LoginPage.css";
 import { Tab, Button, Tabs } from "react-bootstrap"
 import CreateAccount from './CreateAccount';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import GoogleLogin from 'react-google-login';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 
 export default function LoginPage() {
     const responseFacebook = (response) => {
@@ -12,6 +14,17 @@ export default function LoginPage() {
 
     const responseGoogle = (response) => {
         console.log(response);
+    };
+
+    const passwordRef = useRef("");
+    const emailRef = useRef("");
+    const dispatch = useDispatch();
+    let history = useHistory();
+    const login = (e) => {
+        e.preventDefault();
+        let user = { email: emailRef.current.value, password: passwordRef.current.value };
+        dispatch({ type: "LOGIN", payload: user });
+        history.goBack();
     };
 
     return (
@@ -33,7 +46,7 @@ export default function LoginPage() {
                                     type="email"
                                     name="email"
                                     noValidate
-                                // onChange={handleEmailChange}
+                                    ref={emailRef}
                                 />
                             </div>
                             <div className="password">
@@ -45,11 +58,11 @@ export default function LoginPage() {
                                     type="password"
                                     name="password"
                                     noValidate
-                                // ref={passwordRef}
+                                    ref={passwordRef}
                                 />
                             </div>
                             <div className="createAccount">
-                                <Button variant="outline-success" type="submit" className="login-button">LOG IN</Button>
+                                <Button variant="outline-success" type="submit" className="login-button" onClick={login}>LOG IN</Button>
                             </div>
                         </form>
                         <div className="break-box">

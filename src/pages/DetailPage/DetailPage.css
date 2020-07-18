@@ -1,4 +1,4 @@
-.nav-link {
+.tab-part {
   color: teal !important;
   background-color: white !important;
   text-transform: uppercase;
@@ -7,7 +7,7 @@
   font-size: 15px;
 }
 
-.nav-link:hover {
+.tab-part:hover {
   color: white !important;
   background-color: teal !important;
 }
@@ -21,11 +21,90 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 8%;
+  padding: 0 !important;
+  margin: 8% 0 0 0 !important;
 }
 
 .wallet-button {
   font-size: 15px !important;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.transaction-part {
+  background-color: lemonchiffon;
+}
+
+.modal-title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal-title-text {
+  color: deeppink;
+}
+
+.modal-footer-button {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.account-part {
+  margin: 8% 0 0 0;
+}
+
+.avatar {
+  width: 250%;
+}
+
+.testing {
+  align-items: center;
+  /* background-color: gold; */
+  margin: 3% 0 3% 0;
+}
+
+.name-part {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.first-name-part,
+.last-name-part {
+  width: 45%;
+}
+
+.email-size {
+  width: 100%;
+}
+
+.email-part {
+  margin-bottom: 50px;
+}
+
+.password-size {
+  width: 100%;
+}
+
+.password-part {
+  margin-bottom: 30px;
+}
+
+.info-button-part {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info-button {
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+.category-part {
+  background-color: lightcoral;
+}
+
+.card-test {
+  width: 25%;
 }
