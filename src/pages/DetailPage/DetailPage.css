@@ -31,10 +31,6 @@
   font-weight: bold;
 }
 
-.transaction-part {
-  background-color: lemonchiffon;
-}
-
 .modal-title {
   font-weight: bold;
   text-transform: uppercase;
@@ -48,6 +44,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 13px;
+  margin-left: 15px;
 }
 
 .account-part {
@@ -61,7 +58,7 @@
 .testing {
   align-items: center;
   /* background-color: gold; */
-  margin: 3% 0 3% 0;
+  margin: 10% 0 10% 0;
 }
 
 .name-part {
@@ -83,17 +80,10 @@
   margin-bottom: 50px;
 }
 
-.password-size {
-  width: 100%;
-}
-
-.password-part {
-  margin-bottom: 30px;
-}
-
 .info-button-part {
   display: flex;
   justify-content: flex-end;
+  padding-right: 15px;
 }
 
 .info-button {

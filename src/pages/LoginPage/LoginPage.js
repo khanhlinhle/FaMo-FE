@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import "./LoginPage.css";
 import { Tab, Button, Tabs } from "react-bootstrap"
 import CreateAccount from './CreateAccount';
@@ -6,25 +6,50 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
+import axios from 'axios'
 
 export default function LoginPage() {
-    const responseFacebook = (response) => {
-        console.log(response);
+    const responseFacebook = async (response) => {
+        const res = await axios.get(`https://localhost:5004/auth/login/facebook?fbToken=${response.accessToken}`);
+
+        const { user, token } = res.data.data;
+        console.log(user)
+
+        localStorage.setItem("token", token);
     };
 
-    const responseGoogle = (response) => {
-        console.log(response);
+    const responseGoogle = async (response) => {
+        const res = await axios.get(`https://localhost:5004/auth/login/google?googleToken=${response.accessToken}`);
+
+        const { user, token } = res.data.data;
+        console.log(user)
+
+        localStorage.setItem("token", token);
     };
 
-    const passwordRef = useRef("");
-    const emailRef = useRef("");
     const dispatch = useDispatch();
     let history = useHistory();
-    const login = (e) => {
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+    const login = async (e) => {
         e.preventDefault();
-        let user = { email: emailRef.current.value, password: passwordRef.current.value };
-        dispatch({ type: "LOGIN", payload: user });
-        history.goBack();
+        let account = { email: userEmail, password: userPassword };
+        const res = await axios.post(`https://localhost:5004/auth/login`, { account }, {
+            method: "POST"
+        });
+        const { user, token } = res.data.data;
+        console.log(user);
+        localStorage.setItem("token", token);
+        dispatch({ type: "LOGIN", payload: { isAuthenticated: true } });
+        history.push("/detail");
+    };
+
+    const handleEmailChange = (e) => {
+        setUserEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setUserPassword(e.target.value);
     };
 
     return (
@@ -46,7 +71,7 @@ export default function LoginPage() {
                                     type="email"
                                     name="email"
                                     noValidate
-                                    ref={emailRef}
+                                    onChange={handleEmailChange}
                                 />
                             </div>
                             <div className="password">
@@ -58,7 +83,7 @@ export default function LoginPage() {
                                     type="password"
                                     name="password"
                                     noValidate
-                                    ref={passwordRef}
+                                    onChange={handlePasswordChange}
                                 />
                             </div>
                             <div className="createAccount">
@@ -87,7 +112,6 @@ export default function LoginPage() {
                                             Connect with Facebook
                                         </button>
                                     )}
-                                    buttonText="Connect with Google"
                                 >
                                 </FacebookLogin>
                             </div>
@@ -110,10 +134,9 @@ export default function LoginPage() {
                                 <span>CONNECT WITH APPLE</span>
                             </div>
                         </div>
-
                     </div>
                 </Tab>
             </Tabs >
         </div >
-    )
-}
+    );
+};

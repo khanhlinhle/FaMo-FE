@@ -1,15 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col, Container } from "react-bootstrap";
+import axios from "axios";
 
 export default function ExpenseModal(props) {
 
-    // const addExpense = () => {
-    //     const [wallet, setWallet] = useState("");
-    //     const [amount, setAmount] = useState(0);
-    //     const [category, setCategory] = useState("");
-    //     const [date, setDate] = useState(0);
-    //     const [description, setDescription] = useState("");
-    // };
+    const [wallet, setWallet] = useState(null);
+    const [walletList, setWalletList] = useState([]);
+    const [amount, setAmount] = useState(0);
+    const [description, setDescription] = useState("");
+    const [date, setDate] = useState(null);
+    const [familyList, setFamilyList] = useState([]);
+    const [family, setFamily] = useState(null);
+    const [categoriesList, setCategoriesList] = useState(null);
+    const [category, setCategory] = useState(null);
+
+    const createExpense = async (e) => {
+        e.preventDefault();
+        const res = await axios.post(`https://localhost:5004/family/${family}/wallets/${wallet}/expenses`, {
+            amount: amount,
+            description: description,
+            date: date,
+            category: category
+        }, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+        });
+        console.log(res);
+    };
+
+    useEffect(() => {
+        async function fetchFamily() {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                return;
+            };
+
+            try {
+                const res = await axios.get(`https://localhost:5004/family`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+                console.log(res);
+                setFamilyList(res.data.data);
+            } catch (error) {
+                console.log(error)
+            };
+        };
+        fetchFamily();
+        getCategoriesList();
+    }, []);
+
+    const getCategoriesList = async () => {
+        try {
+            const result = await axios.get(`https://localhost:5004/categories`);
+            console.log(result.data.data);
+            setCategoriesList(result.data.data);
+        } catch (error) {
+            return new Error(error.response.message);
+        };
+    };
+
+    const handleWallet = (e) => {
+        setWallet(e.target.value);
+        console.log(e.target.value);
+    };
+
+    const handleFamily = (e) => {
+        setFamily(e.target.value)
+        console.log(e.target.value);
+        const selectedFamily = familyList.find(item => item._id === e.target.value);
+        setWalletList(selectedFamily.wallets);
+    };
+
+    const handleCategory = (e) => {
+        setCategory(e.target.value);
+        console.log(e.target.value);
+    };
 
     return (
         <div>
@@ -30,38 +102,30 @@ export default function ExpenseModal(props) {
                     <Container>
                         <Row className="modal-body-part">
                             <Form>
-                                <Col lg={4} md={4} s={12} xs={12}>
+                                <Col lg={6} md={6} s={12} xs={12}>
+                                    <Form.Group controlId="formBasicFamily">
+                                        <Form.Label>
+                                            <h6>Family</h6>
+                                        </Form.Label>
+                                        <div>
+                                            <select className="browser-default custom-select" onChange={(e) => handleFamily(e)}>
+                                                {
+                                                    familyList && familyList.map(item => <option value={item._id}>{item.name}</option>)
+                                                }
+                                            </select>
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                                <Col lg={6} md={6} s={12} xs={12}>
                                     <Form.Group controlId="formBasicWallet">
                                         <Form.Label>
                                             <h6>Wallet</h6>
                                         </Form.Label>
                                         <div>
-                                            <select className="browser-default custom-select">
-                                                <option value="1">Cash</option>
-                                                <option value="2">Bank</option>
-                                                <option value="3">Credit</option>
-                                            </select>
-                                        </div>
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={4} md={4} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicAmount">
-                                        <Form.Label>
-                                            <h6>Amount</h6>
-                                        </Form.Label>
-                                        <Form.Control type="number" placeholder="Amount" />
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={4} md={4} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicCategory">
-                                        <Form.Label>
-                                            <h6>Category</h6>
-                                        </Form.Label>
-                                        <div>
-                                            <select className="browser-default custom-select">
-                                                <option value="1">Foods</option>
-                                                <option value="2">Drinks</option>
-                                                <option value="3">Entertainment</option>
+                                            <select className="browser-default custom-select" onChange={(e) => handleWallet(e)}>
+                                                {
+                                                    walletList && walletList.map(item => <option value={item._id}>{item.type}</option>)
+                                                }
                                             </select>
                                         </div>
                                     </Form.Group>
@@ -70,30 +134,56 @@ export default function ExpenseModal(props) {
                         </Row>
                         <Row className="modal-body-part">
                             <Form>
-                                <Col lg={4} md={4} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicDate">
+                                <Col lg={6} md={6} s={12} xs={12}>
+                                    <Form.Group controlId="formBasicAmount">
                                         <Form.Label>
-                                            <h6>Date</h6>
+                                            <h6>Amount</h6>
                                         </Form.Label>
-                                        <Form.Control type="date" placeholder="Date" />
+                                        <Form.Control type="number" onChange={e => setAmount(e.target.value)} placeholder="Amount" />
                                     </Form.Group>
                                 </Col>
-                                <Col lg={{ span: 6, offset: 2 }} md={6} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicDescription">
+                                <Col lg={6} md={6} s={12} xs={12}>
+                                    <Form.Group controlId="formBasicCategory">
                                         <Form.Label>
-                                            <h6>Description</h6>
+                                            <h6>Category</h6>
                                         </Form.Label>
-                                        <Form.Control type="text" placeholder="Description" />
+                                        <div>
+                                            <select className="browser-default custom-select" onChange={(e) => handleCategory(e)}>
+                                                {
+                                                    categoriesList && categoriesList.filter(c => c.type === "Expense").map(item => <option value={item._id}>{item.name}</option>)
+                                                }
+                                            </select>
+                                        </div>
                                     </Form.Group>
                                 </Col>
                             </Form>
                         </Row>
+                        <Row className="modal-body-part">
+                            <Form onSubmit={createExpense}>
+                                <Col lg={6} md={6} s={12} xs={12}>
+                                    <Form.Group controlId="formBasicDate">
+                                        <Form.Label>
+                                            <h6>Date</h6>
+                                        </Form.Label>
+                                        <Form.Control type="date" placeholder="Date" onChange={e => setDate(e.target.value)} />
+                                    </Form.Group>
+                                </Col>
+                                <Col lg={6} md={6} s={12} xs={12}>
+                                    <Form.Group controlId="formBasicDescription">
+                                        <Form.Label>
+                                            <h6>Description</h6>
+                                        </Form.Label>
+                                        <Form.Control type="text" onChange={e => setDescription(e.target.value)} placeholder="Description" />
+                                    </Form.Group>
+                                </Col>
+                                <div className="info-button-part w-100">
+                                    <Button variant="outline-dark" onClick={props.onHide} className="modal-footer-button">Close</Button>
+                                    <Button variant="outline-success" onClick={props.onHide} type="submit" className="modal-footer-button">Save</Button>
+                                </div>
+                            </Form>
+                        </Row>
                     </Container>
                 </Modal.Body>
-                <Modal.Footer >
-                    <Button variant="outline-dark" onClick={props.onHide} className="modal-footer-button">Close</Button>
-                    <Button variant="outline-success" onClick={props.onHide} className="modal-footer-button">Save</Button>
-                </Modal.Footer>
             </Modal>
         </div>
     )

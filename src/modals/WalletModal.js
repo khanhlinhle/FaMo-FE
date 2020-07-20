@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col, Container } from "react-bootstrap";
-import axiosClient from '../apis/BaseAPI';
-// import axios from "axios";
+import axios from "axios";
 
 export default function WalletModal(props) {
 
-    const [name, setName] = useState("");
+    useEffect(() => {
+        async function fetchFamily() {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                return;
+            };
 
-    const createName = async (e) => {
-        e.preventDefault();
-        console.log(name);
-        axiosClient().post(`/family`, { name: name })
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-    };
-
+            try {
+                const res = await axios.get(`https://localhost:5004/family/${family}/wallets/${wallet}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+                console.log(res);
+                setFamilyList(res.data.data);
+            } catch (error) {
+                console.log(error)
+            };
+        };
+        fetchFamily();
+    }, []);
 
     return (
         <div>
@@ -33,28 +45,7 @@ export default function WalletModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Container>
-                        <Row className="modal-body-part">
-                            <Form onSubmit={createName} >
-                                <Col lg={6} md={6} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicName">
-                                        <Form.Label>
-                                            <h6>Name</h6>
-                                        </Form.Label>
-                                        <Form.Control type="text" placeholder="Name" onChange={e => setName(e.target.value)} />
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={6} md={6} s={12} xs={12}>
-                                    <Form.Group controlId="formBasicType">
-                                        <Form.Label>
-                                            <h6>Share with your family memeber</h6>
-                                        </Form.Label>
-                                        <Form.Control type="email" placeholder="Your family member email" />
-                                    </Form.Group>
-                                </Col>
-                                <Button variant="outline-dark" onClick={props.onHide} className="modal-footer-button">Close</Button>
-                                <Button variant="outline-success" onClick={props.onHide} type="submit" className="modal-footer-button">Save</Button>
-                            </Form>
-                        </Row>
+
                     </Container>
                 </Modal.Body>
             </Modal>
