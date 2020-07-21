@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ export default function WalletModal(props) {
             };
 
             try {
-                const res = await axios.get(`https://localhost:5004/family/${family}/wallets/${wallet}`, {
+                const res = await axios.get(`https://localhost:5004/family/${family}/wallets/${props.walletId}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -51,6 +51,11 @@
   margin: 8% 0 0 0;
 }
 
+.account-button {
+  display: flex !important;
+  justify-content: flex-end;
+}
+
 .avatar {
   width: 250%;
 }

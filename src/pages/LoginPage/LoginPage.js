@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./LoginPage.css";
 import { Tab, Button, Tabs } from "react-bootstrap"
 import CreateAccount from './CreateAccount';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 
 export default function LoginPage() {
@@ -29,6 +29,8 @@ export default function LoginPage() {
 
     const dispatch = useDispatch();
     let history = useHistory();
+    const user = useSelector(state => state.user);
+    console.log(user);
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const login = async (e) => {
@@ -40,9 +42,14 @@ export default function LoginPage() {
         const { user, token } = res.data.data;
         console.log(user);
         localStorage.setItem("token", token);
-        dispatch({ type: "LOGIN", payload: { isAuthenticated: true } });
-        history.push("/detail");
+        dispatch({ type: "LOGIN", payload: user });
     };
+
+    useEffect(() => {
+        if (user.isAuthenticated) {
+            history.push("/detail")
+        }
+    }, [user]);
 
     const handleEmailChange = (e) => {
         setUserEmail(e.target.value);

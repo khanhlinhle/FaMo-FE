@@ -1,44 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Col, Row, Container, Button } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import FamilyModal from "./../modals/FamilyModal";
 
 export default function Account(props) {
 
-    const dispatch = useDispatch();
     let history = useHistory();
-    const isAuthenticated = useSelector(state => state.isAuthenticated)
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-
-    useEffect(() => {
-        async function fetchUser() {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                return;
-            };
-
-            try {
-                const res = await axios.get(`https://localhost:5004/users/me`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                });
-                const { firstName, lastName, email } = res.data.data;
-                setFirstName(firstName);
-                setLastName(lastName);
-                setEmail(email);
-            } catch (error) {
-                localStorage.removeItem("token");
-            };
-        };
-        fetchUser();
-    }, [isAuthenticated]);
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    const [familyModalShow, setFamilyModalShow] = useState(false);
 
     const logout = async (e) => {
         e.preventDefault();
@@ -66,14 +39,14 @@ export default function Account(props) {
                             <TextField
                                 id="outlined-required"
                                 label="First Name"
-                                value={firstName}
+                                value={user.data.firstName}
                                 variant="outlined"
                                 className="first-name-part"
                             />
                             <TextField
                                 id="outlined-required"
                                 label="Last Name"
-                                value={lastName}
+                                value={user.data.lastName}
                                 variant="outlined"
                                 className="last-name-part"
                             />
@@ -82,14 +55,19 @@ export default function Account(props) {
                             <TextField
                                 id="outlined-required"
                                 label="Email"
-                                value={email}
+                                value={user.data.email}
                                 variant="outlined"
                                 className="email-size"
                             />
                         </form>
-                        <div className="info-button-part">
+                        <div className="account-button">
                             <Button variant="outline-dark" className="info-button">Update</Button>
-                            <Button variant="outline-success" className="info-button" type="submit" onClick={logout}>Log out</Button> :
+                            <Button variant="outline-success" className="info-button" type="submit" onClick={logout}>Log out</Button>
+                            <Button variant="outline-info" onClick={() => setFamilyModalShow(true)}>CREATE FAMILY</Button>
+                            <FamilyModal
+                                show={familyModalShow}
+                                onHide={() => setFamilyModalShow(false)}
+                            />
                         </div>
                     </Container>
                 </Col>
