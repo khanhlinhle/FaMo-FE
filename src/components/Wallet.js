@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Button, DropdownButton } from "react-bootstrap";
-import WalletModal from "./../modals/WalletModal";
+import WalletModal from "../modals/WalletModal";
+import DropdownItem from 'react-bootstrap/DropdownItem';
 import axios from "axios";
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default function Wallet(props) {
 
@@ -26,7 +26,7 @@ export default function Wallet(props) {
                         "Content-Type": "application/json",
                     },
                 });
-                console.log(res);
+                console.log(res.data.data);
                 setFamilyList(res.data.data);
             } catch (error) {
                 console.log(error)
@@ -36,20 +36,21 @@ export default function Wallet(props) {
     }, []);
 
     const handleFamily = (e) => {
-        setFamily(e)
-        const selectedFamily = familyList.find(item => item.name === e);
+        const selectedFamily = familyList.find(item => item.name == e);
+        setFamily(selectedFamily)
         setWalletList(selectedFamily.wallets);
     };
-
     return (
         <Row className="wallet-part">
             <Col lg={3} md={6} s={12} xs={12}>
                 <Card>
                     <Card.Img variant="top" src="https://image.freepik.com/free-vector/libra-money-currency-with-wallet_36244-323.jpg" className="wallet-icon" />
                     <Card.Body>
-                        <DropdownButton onSelect={handleFamily} id="dropdown-basic-button" title={family ? <span className="wallet-button">{family}</span> : <span className="wallet-button">Family</span>}>
+                        <DropdownButton onSelect={handleFamily} id="dropdown-basic-button" title={family ? <span className="wallet-button">{family.name}</span> : <span className="wallet-button">Family</span>}>
                             {
-                                familyList ? familyList.map(item => <DropdownItem eventKey={item.name}>{item.name}</DropdownItem>) : ""
+                                familyList ? familyList.map(item =>
+                                    <DropdownItem eventKey={item.name} key={item._id} >{item.name}</DropdownItem>
+                                ) : <div></div>
                             }
                         </DropdownButton>
                     </Card.Body>
@@ -57,7 +58,7 @@ export default function Wallet(props) {
             </Col>
             {
                 walletList && walletList.map(item =>
-                    <Col lg={3} md={6} s={12} xs={12}>
+                    <Col lg={3} md={6} s={12} xs={12} key={item._id} >
                         {
                             item.type === "Cash" ?
                                 <Card>
@@ -65,7 +66,8 @@ export default function Wallet(props) {
                                     < Card.Body >
                                         <Button variant="success" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
                                         <WalletModal
-                                            walletId={item._id}
+                                            family={family}
+                                            wallet={item}
                                             show={walletModalShow}
                                             onHide={() => setWalletModalShow(false)}
                                         />
@@ -77,7 +79,8 @@ export default function Wallet(props) {
                                         < Card.Body >
                                             <Button variant="warning" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
                                             <WalletModal
-                                                walletId={item._id}
+                                                family={family}
+                                                wallet={item}
                                                 show={walletModalShow}
                                                 onHide={() => setWalletModalShow(false)}
                                             />
@@ -89,7 +92,8 @@ export default function Wallet(props) {
                                             < Card.Body >
                                                 <Button variant="info" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
                                                 <WalletModal
-                                                    walletId={item._id}
+                                                    family={family}
+                                                    wallet={item}
                                                     show={walletModalShow}
                                                     onHide={() => setWalletModalShow(false)}
                                                 />
