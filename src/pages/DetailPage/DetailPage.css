@@ -121,3 +121,24 @@
   font-size: 20px;
   font-weight: bolder;
 }
+
+.expense-detail-part {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.MuiTypography-body1 {
+  font-weight: bold !important;
+}
+
+.expense-title-size {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.expense-title {
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 8px;
+}

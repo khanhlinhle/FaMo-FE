@@ -29,49 +29,52 @@ export default function Account(props) {
 
     return (
         <Container>
-            <Row className="account-part">
-                <Col lg={2} md={4} s={12} xs={12}>
-                    <img src="https://image.freepik.com/free-vector/dog-head-eyeglasses-st-patrick-s-day_68946-375.jpg" className="avatar" />
-                </Col>
-                <Col lg={{ span: 7, offset: 3 }} md={8} s={12} xs={12}>
-                    <Container className="testing">
-                        <form noValidate autoComplete="off" className="name-part">
-                            <TextField
-                                id="outlined-required"
-                                label="First Name"
-                                value={user.data.firstName}
-                                variant="outlined"
-                                className="first-name-part"
-                            />
-                            <TextField
-                                id="outlined-required"
-                                label="Last Name"
-                                value={user.data.lastName}
-                                variant="outlined"
-                                className="last-name-part"
-                            />
-                        </form>
-                        <form noValidate autoComplete="off" className="email-part" >
-                            <TextField
-                                id="outlined-required"
-                                label="Email"
-                                value={user.data.email}
-                                variant="outlined"
-                                className="email-size"
-                            />
-                        </form>
-                        <div className="account-button">
-                            <Button variant="outline-dark" className="info-button">Update</Button>
-                            <Button variant="outline-success" className="info-button" type="submit" onClick={logout}>Log out</Button>
-                            <Button variant="outline-info" onClick={() => setFamilyModalShow(true)}>CREATE FAMILY</Button>
-                            <FamilyModal
-                                show={familyModalShow}
-                                onHide={() => setFamilyModalShow(false)}
-                            />
-                        </div>
-                    </Container>
-                </Col>
-            </Row>
+            {
+                user.data ?
+                    <Row className="account-part">
+                        <Col lg={2} md={4} s={12} xs={12}>
+                            <img src="https://image.freepik.com/free-vector/dog-head-eyeglasses-st-patrick-s-day_68946-375.jpg" className="avatar" />
+                        </Col>
+                        <Col lg={{ span: 7, offset: 3 }} md={8} s={12} xs={12}>
+                            <Container className="testing">
+                                <form noValidate autoComplete="off" className="name-part">
+                                    <TextField
+                                        id="outlined-required"
+                                        label="First Name"
+                                        value={user.data.firstName}
+                                        variant="outlined"
+                                        className="first-name-part"
+                                    />
+                                    <TextField
+                                        id="outlined-required"
+                                        label="Last Name"
+                                        value={user.data.lastName}
+                                        variant="outlined"
+                                        className="last-name-part"
+                                    />
+                                </form>
+                                <form noValidate autoComplete="off" className="email-part" >
+                                    <TextField
+                                        id="outlined-required"
+                                        label="Email"
+                                        value={user.data.email}
+                                        variant="outlined"
+                                        className="email-size"
+                                    />
+                                </form>
+                                <div className="account-button">
+                                    <Button variant="outline-dark" className="info-button">Update</Button>
+                                    <Button variant="outline-success" className="info-button" type="submit" onClick={logout}>Log out</Button>
+                                    <Button variant="outline-info" onClick={() => setFamilyModalShow(true)}>CREATE FAMILY</Button>
+                                    <FamilyModal
+                                        show={familyModalShow}
+                                        onHide={() => setFamilyModalShow(false)}
+                                    />
+                                </div>
+                            </Container>
+                        </Col>
+                    </Row> : ""
+            }
         </Container>
     );
 };
