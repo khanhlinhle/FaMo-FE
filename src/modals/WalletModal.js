@@ -37,20 +37,25 @@ export default function WalletModal(props) {
         setOpenIncomes(!openIncomes);
     };
 
+    const [categoriesList, setCategoriesList] = useState([]);
     const [incomeList, setIncomeList] = useState([]);
     const [expenseList, setExpenseList] = useState([]);
     const [selectedWallet, setSelectedWallet] = useState(null);
-    const [categoriesList, setCategoriesList] = useState([]);
 
     const family = props.family;
     const wallet = props.wallet;
-    console.log('wallet', wallet)
+    // console.log('family', family);
+    // console.log('wallet', selectedWallet);
+
     useEffect(() => {
-        fetchExpense();
-        fetchIncome();
-        fetchWallet();
+        console.log('fetching');
         getCategoriesList();
-    }, []);
+        if (family && wallet) {
+            fetchWallet();
+            fetchExpense();
+            fetchIncome();
+        }
+    }, [wallet]);
 
     const getCategoriesList = async () => {
         try {
@@ -127,7 +132,7 @@ export default function WalletModal(props) {
     return (
         <div>
             {
-                selectedWallet ?
+                family && selectedWallet ?
                     <Modal
                         {...props}
                         size="lg"

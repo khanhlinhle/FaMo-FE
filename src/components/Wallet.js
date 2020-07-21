@@ -7,6 +7,7 @@ import axios from "axios";
 export default function Wallet(props) {
 
     const [walletModalShow, setWalletModalShow] = useState(false);
+    const [selectedWallet, setSelectedWallet] = useState(null);
     const [familyList, setFamilyList] = useState([]);
     const [family, setFamily] = useState(null);
     const [walletList, setWalletList] = useState([]);
@@ -56,6 +57,14 @@ export default function Wallet(props) {
                     </Card.Body>
                 </Card>
             </Col>
+
+            <WalletModal
+                family={family}
+                wallet={selectedWallet}
+                show={walletModalShow}
+                onHide={() => setWalletModalShow(false)}
+            />
+
             {
                 walletList && walletList.map(item =>
                     <Col lg={3} md={6} s={12} xs={12} key={item._id} >
@@ -64,39 +73,21 @@ export default function Wallet(props) {
                                 <Card>
                                     <Card.Img variant="top" src="https://image.freepik.com/free-vector/plant-coins-bag-money_24877-60361.jpg" className="wallet-icon" />
                                     < Card.Body >
-                                        <Button variant="success" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
-                                        <WalletModal
-                                            family={family}
-                                            wallet={item}
-                                            show={walletModalShow}
-                                            onHide={() => setWalletModalShow(false)}
-                                        />
+                                        <Button variant="success" className="wallet-button" value={item._id} onClick={() => { setWalletModalShow(true); setSelectedWallet(item); }}>{item.type}</Button>
                                     </Card.Body>
                                 </Card> :
                                 (item.type === "Bank" ?
                                     <Card>
                                         <Card.Img variant="top" src="https://image.freepik.com/free-vector/online-banking_24908-60031.jpg" />
                                         < Card.Body >
-                                            <Button variant="warning" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
-                                            <WalletModal
-                                                family={family}
-                                                wallet={item}
-                                                show={walletModalShow}
-                                                onHide={() => setWalletModalShow(false)}
-                                            />
+                                            <Button variant="warning" className="wallet-button" value={item._id} onClick={() => { setWalletModalShow(true); setSelectedWallet(item); }}>{item.type}</Button>
                                         </Card.Body>
                                     </Card> :
                                     (item.type === "Credit" ?
                                         <Card>
                                             <Card.Img variant="top" src="https://image.freepik.com/free-vector/illustration-hand-holding-credit-card_53876-8126.jpg" className=" wallet-icon" />
                                             < Card.Body >
-                                                <Button variant="info" className="wallet-button" value={item._id} onClick={() => setWalletModalShow(true)}>{item.type}</Button>
-                                                <WalletModal
-                                                    family={family}
-                                                    wallet={item}
-                                                    show={walletModalShow}
-                                                    onHide={() => setWalletModalShow(false)}
-                                                />
+                                                <Button variant="info" className="wallet-button" value={item._id} onClick={() => { setWalletModalShow(true); setSelectedWallet(item); }}>{item.type}</Button>
                                             </Card.Body>
                                         </Card> : ""))
 
