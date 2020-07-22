@@ -25,11 +25,8 @@ export default function DetailPage() {
     };
 
     return (
-        <div className="test">
-            <Navbar bg="light">
-                <Navbar.Brand href="#home">Brand link</Navbar.Brand>
-            </Navbar>
-            <Nav fill variant="tabs">
+        <div>
+            <Nav fill variant="tabs" >
                 <Nav.Item>
                     <Nav.Link eventKey="link-1" onClick={onAccount} className="tab-part">Account</Nav.Link>
                 </Nav.Item>

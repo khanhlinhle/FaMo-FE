@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Row, Col, Container, Badge, Alert } from "react-bootstrap";
+import { Row, Col, Container, Badge, Alert } from "react-bootstrap";
 import axios from "axios";
 import NumberFormat from 'react-number-format';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import TransactionModal from './TransactionModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,11 +22,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function WalletModal(props) {
+export default function WalletDetail(props) {
 
     const classes = useStyles();
     const [openExpenses, setOpenExpenses] = useState(true);
     const [openIncomes, setOpenIncomes] = useState(true);
+    const [transactionModalShow, setTransactionModalShow] = useState(false);
 
     const handleClickExpenses = () => {
         setOpenExpenses(!openExpenses);
@@ -44,11 +44,8 @@ export default function WalletModal(props) {
 
     const family = props.family;
     const wallet = props.wallet;
-    // console.log('family', family);
-    // console.log('wallet', selectedWallet);
 
     useEffect(() => {
-        console.log('fetching');
         getCategoriesList();
         if (family && wallet) {
             fetchWallet();
@@ -80,7 +77,6 @@ export default function WalletModal(props) {
                     "Content-Type": "application/json",
                 },
             });
-            //console.log("expense list", res);
             setExpenseList(res.data.data);
         } catch (error) {
             console.log(error)
@@ -101,7 +97,6 @@ export default function WalletModal(props) {
                     "Content-Type": "application/json",
                 },
             });
-            //console.log("income list", res);
             setIncomeList(res.data.data);
         } catch (error) {
             console.log(error)
@@ -122,37 +117,36 @@ export default function WalletModal(props) {
                     "Content-Type": "application/json",
                 },
             });
-            //console.log("wallet selected", res.data.data);
             setSelectedWallet(res.data.data);
         } catch (error) {
             console.log(error)
         };
     };
-
+    const getColor = (type) => {
+        if (type == "Cash") return "#168b9d"
+        else if (type == "Bank") return "#f8bf33"
+        else if (type == "Credit") return "#c8eaee"
+    };
+    console.log(expenseList)
     return (
         <div>
             {
                 family && selectedWallet ?
-                    <Modal
-                        {...props}
-                        size="lg"
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="contained-modal-title-vcenter" className="modal-title">{selectedWallet.type}
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Container>
-                                <Alert variant="warning">
-                                    <div className="balance-title"><strong>Current Balance: </strong></div>
+                    <div className="list-part" style={{ backgroundColor: getColor(selectedWallet.type) }}>
+                        <Alert variant="warning">
+                            <div className="balance-part">
+                                <div className="balance-title"><strong>Current Balance: </strong></div>
+                                <div>
                                     {
                                         selectedWallet.balance < 0 ?
                                             <NumberFormat value={selectedWallet.balance} displayType={'text'} className="balance-title-size text-danger" thousandSeparator={true} prefix={'$'} /> :
                                             <NumberFormat value={selectedWallet.balance} displayType={'text'} className="balance-title-size text-success" thousandSeparator={true} prefix={'$'} />
                                     }
-                                </Alert>
+                                </div>
+                            </div>
+                        </Alert>
+                        <Row>
+                            <Col lg={6} md={6} s={12} xs={12}>
                                 <List>
                                     <ListItem button onClick={handleClickExpenses}>
                                         <ListItemText>
@@ -166,26 +160,34 @@ export default function WalletModal(props) {
                                         expenseList && expenseList.map(expense =>
                                             <Collapse in={openExpenses} timeout="auto" unmountOnExit>
                                                 <List component="div" disablePadding>
-                                                    <ListItem button className={classes.nested}>
+                                                    <ListItem button onClick={() => setTransactionModalShow(true)} className={classes.nested}>
                                                         <div className="expense-detail-part">
                                                             <div className="d-block">
                                                                 <ListItemText primary={expense.description} />
                                                                 <div className="text-muted">
-                                                                    {/* {
+                                                                    {
                                                                         categoriesList && categoriesList.find(item => item._id === expense.category).name
-                                                                    } */}
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div>
                                                                 <NumberFormat value={expense.amount} displayType={'text'} className="expense-title-size text-danger" thousandSeparator={true} prefix={'$'} />
                                                             </div>
                                                         </div>
+                                                        <TransactionModal
+                                                            expense={expenseList}
+                                                            family={family}
+                                                            wallet={wallet}
+                                                            show={transactionModalShow}
+                                                            onHide={() => setTransactionModalShow(false)} />
                                                     </ListItem>
                                                 </List>
                                             </Collapse>
                                         )
                                     }
                                 </List>
+                            </Col>
+                            <Col lg={6} md={6} s={12} xs={12}>
                                 <List>
                                     <ListItem button onClick={handleClickIncomes}>
                                         <ListItemText>
@@ -204,9 +206,9 @@ export default function WalletModal(props) {
                                                             <div className="d-block">
                                                                 <ListItemText primary={income.description} />
                                                                 <div className="text-muted">
-                                                                    {/* {
+                                                                    {
                                                                         categoriesList && categoriesList.find(item => item._id === income.category).name
-                                                                    } */}
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -214,14 +216,20 @@ export default function WalletModal(props) {
                                                             </div>
                                                         </div>
                                                     </ListItem>
+                                                    <TransactionModal
+                                                        income={incomeList}
+                                                        family={family}
+                                                        wallet={wallet}
+                                                        show={transactionModalShow}
+                                                        onHide={() => setTransactionModalShow(true)} />
                                                 </List>
                                             </Collapse>
                                         )
                                     }
                                 </List>
-                            </Container>
-                        </Modal.Body>
-                    </Modal>
+                            </Col>
+                        </Row>
+                    </div>
                     : ""
             }
         </div >
