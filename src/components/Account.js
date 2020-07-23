@@ -15,7 +15,7 @@ export default function Account(props) {
 
     const logout = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`https://localhost:5004/auth/logout`, {}, {
+        const res = await axios.post(`${process.env.REACT_APP_URL}/auth/logout`, {}, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -16,7 +16,7 @@ export default function ExpenseModal(props) {
 
     const createExpense = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`https://localhost:5004/family/${family}/wallets/${wallet}/expenses`, {
+        const res = await axios.post(`${process.env.REACT_APP_URL}/family/${family}/wallets/${wallet}/expenses`, {
             amount: amount,
             description: description,
             date: date,
@@ -39,7 +39,7 @@ export default function ExpenseModal(props) {
             };
 
             try {
-                const res = await axios.get(`https://localhost:5004/family`, {
+                const res = await axios.get(`${process.env.REACT_APP_URL}/family`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ export default function ExpenseModal(props) {
 
     const getCategoriesList = async () => {
         try {
-            const result = await axios.get(`https://localhost:5004/categories`);
+            const result = await axios.get(`${process.env.REACT_APP_URL}/categories`);
             console.log(result.data.data);
             setCategoriesList(result.data.data);
         } catch (error) {

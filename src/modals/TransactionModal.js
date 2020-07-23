@@ -27,7 +27,7 @@ export default function TransactionModal(props) {
 
     const updateOldExpense = async () => {
         try {
-            const result = await axios.put(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/expenses/${expense._id}`, {
+            const result = await axios.put(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/expenses/${expense._id}`, {
                 amount: amount,
                 description: description,
                 date: date,
@@ -56,7 +56,7 @@ export default function TransactionModal(props) {
 
     const deleteOldExpense = async () => {
         try {
-            const result = await axios.delete(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/expenses/${expense._id}`, {
+            const result = await axios.delete(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/expenses/${expense._id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -73,7 +73,7 @@ export default function TransactionModal(props) {
 
     const updateOldIncome = async () => {
         try {
-            const result = await axios.put(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/incomes/${income._id}`, {
+            const result = await axios.put(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/incomes/${income._id}`, {
                 amount: amount,
                 description: description,
                 date: date,
@@ -100,7 +100,7 @@ export default function TransactionModal(props) {
 
     const deleteOldIncome = async () => {
         try {
-            const result = await axios.delete(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/incomes/${income._id}`, {
+            const result = await axios.delete(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/incomes/${income._id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

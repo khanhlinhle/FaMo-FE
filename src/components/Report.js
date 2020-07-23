@@ -43,7 +43,7 @@ export default function Report() {
         };
 
         try {
-            const res = await axios.get(`https://localhost:5004/family`, {
+            const res = await axios.get(`${process.env.REACT_APP_URL}/family`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ export default function Report() {
 
     const getCategoriesList = async () => {
         try {
-            const result = await axios.get(`https://localhost:5004/categories`);
+            const result = await axios.get(`${process.env.REACT_APP_URL}/categories`);
             setCategoriesList(result.data.data);
         } catch (error) {
             return new Error(error.message);
@@ -72,7 +72,7 @@ export default function Report() {
         };
 
         try {
-            const resIn = await axios.post(`https://localhost:5004/family/incomes/report`,
+            const resIn = await axios.post(`${process.env.REACT_APP_URL}/family/incomes/report`,
                 {
                     wallets: walletList,
                 },
@@ -84,7 +84,7 @@ export default function Report() {
                     }
                 });
 
-            const resEx = await axios.post(`https://localhost:5004/family/expenses/report`,
+            const resEx = await axios.post(`${process.env.REACT_APP_URL}/family/expenses/report`,
                 {
                     wallets: walletList,
                 },

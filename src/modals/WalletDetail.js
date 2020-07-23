@@ -59,7 +59,7 @@ export default function WalletDetail(props) {
 
     const getCategoriesList = async () => {
         try {
-            const result = await axios.get(`https://localhost:5004/categories`);
+            const result = await axios.get(`${process.env.REACT_APP_URL}/categories`);
             setCategoriesList(result.data.data);
         } catch (error) {
             return new Error(error.message);
@@ -73,7 +73,7 @@ export default function WalletDetail(props) {
         };
 
         try {
-            const res = await axios.get(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/expenses`, {
+            const res = await axios.get(`${process.env.REACT_APP_URL}/${family._id}/wallets/${wallet._id}/expenses`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export default function WalletDetail(props) {
         };
 
         try {
-            const res = await axios.get(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}/incomes`, {
+            const res = await axios.get(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/incomes`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -116,7 +116,7 @@ export default function WalletDetail(props) {
         };
 
         try {
-            const res = await axios.get(`https://localhost:5004/family/${family._id}/wallets/${wallet._id}`, {
+            const res = await axios.get(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,

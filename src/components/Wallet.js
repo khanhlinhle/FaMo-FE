@@ -26,7 +26,7 @@ export default function Wallet(props) {
             };
 
             try {
-                const res = await axios.get(`https://localhost:5004/family/`, {
+                const res = await axios.get(`${process.env.REACT_APP_URL}/family/`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,

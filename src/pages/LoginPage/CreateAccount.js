@@ -16,7 +16,7 @@ export default function CreateAccount() {
 
     const createUser = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`https://localhost:5004/users`, {
+        const res = await axios.post(`${process.env.REACT_APP_URL}/users`, {
             firstName: firstName,
             lastName: lastName,
             email: userEmail,

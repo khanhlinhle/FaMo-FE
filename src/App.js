@@ -29,7 +29,7 @@ function App() {
       };
 
       try {
-        const res = await axios.get(`https://localhost:5004/users/me`, {
+        const res = await axios.get(`${process.env.REACT_APP_URL}/users/me`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

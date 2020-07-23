@@ -9,7 +9,7 @@ export default function WalletModal(props) {
     const createName = async (e) => {
         e.preventDefault();
         console.log(name);
-        const res = await axios.post("https://localhost:5004/family", { name }, {
+        const res = await axios.post(`${process.env.REACT_APP_URL}/family`, { name }, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,

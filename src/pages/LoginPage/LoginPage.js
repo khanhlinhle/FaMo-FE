@@ -10,7 +10,7 @@ import axios from 'axios'
 
 export default function LoginPage() {
     const responseFacebook = async (response) => {
-        const res = await axios.get(`https://localhost:5004/auth/login/facebook?fbToken=${response.accessToken}`);
+        const res = await axios.get(`${process.env.REACT_APP_URL}auth/login/facebook?fbToken=${response.accessToken}`);
 
         const { user, token } = res.data.data;
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
     };
 
     const responseGoogle = async (response) => {
-        const res = await axios.get(`https://localhost:5004/auth/login/google?googleToken=${response.accessToken}`);
+        const res = await axios.get(`${process.env.REACT_APP_URL}auth/login/google?googleToken=${response.accessToken}`);
 
         const { user, token } = res.data.data;
         localStorage.setItem("token", token);
@@ -34,7 +34,7 @@ export default function LoginPage() {
     const login = async (e) => {
         e.preventDefault();
         let account = { email: userEmail, password: userPassword };
-        const res = await axios.post(`https://localhost:5004/auth/login`, { account }, {
+        const res = await axios.post(`${process.env.REACT_APP_URL}/auth/login`, { account }, {
             method: "POST"
         });
         const { user, token } = res.data.data;
