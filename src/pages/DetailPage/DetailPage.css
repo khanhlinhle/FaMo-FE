@@ -86,7 +86,6 @@
 .info-button-part {
   display: flex;
   justify-content: flex-end;
-  padding-right: 15px;
 }
 
 .info-button {
@@ -201,4 +200,11 @@
 .wallet-button-column-3 {
   grid-area: wallet-button-3;
   position: relative;
+}
+
+.button-part {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 15px;
 }

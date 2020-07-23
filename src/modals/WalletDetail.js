@@ -37,6 +37,9 @@ export default function WalletDetail(props) {
         setOpenIncomes(!openIncomes);
     };
 
+    const [selectedIncome, setSelectedIncome] = useState(null)
+    const [selectedExpense, setSelectedExpense] = useState(null)
+
     const [categoriesList, setCategoriesList] = useState([]);
     const [incomeList, setIncomeList] = useState([]);
     const [expenseList, setExpenseList] = useState([]);
@@ -59,7 +62,7 @@ export default function WalletDetail(props) {
             const result = await axios.get(`https://localhost:5004/categories`);
             setCategoriesList(result.data.data);
         } catch (error) {
-            return new Error(error.response.message);
+            return new Error(error.message);
         };
     };
 
@@ -82,6 +85,9 @@ export default function WalletDetail(props) {
             console.log(error)
         };
     };
+    useEffect(() => {
+        fetchWallet()
+    }, [incomeList, expenseList]);
 
     async function fetchIncome() {
         const token = localStorage.getItem("token");
@@ -146,6 +152,19 @@ export default function WalletDetail(props) {
                             </div>
                         </Alert>
                         <Row>
+
+                            <TransactionModal
+                                expense={selectedExpense}
+                                expenseList={expenseList}
+                                setExpenseList={setExpenseList}
+                                incomeList={incomeList}
+                                setIncomeList={setIncomeList}
+                                income={selectedIncome}
+                                family={family}
+                                wallet={wallet}
+                                categoriesList={categoriesList}
+                                show={transactionModalShow}
+                                onHide={() => setTransactionModalShow(false)} />
                             <Col lg={6} md={6} s={12} xs={12}>
                                 <List>
                                     <ListItem button onClick={handleClickExpenses}>
@@ -160,7 +179,11 @@ export default function WalletDetail(props) {
                                         expenseList && expenseList.map(expense =>
                                             <Collapse in={openExpenses} timeout="auto" unmountOnExit>
                                                 <List component="div" disablePadding>
-                                                    <ListItem button onClick={() => setTransactionModalShow(true)} className={classes.nested}>
+                                                    <ListItem button onClick={() => {
+                                                        setSelectedIncome(null);
+                                                        setSelectedExpense(expense);
+                                                        setTransactionModalShow(true);
+                                                    }} className={classes.nested}>
                                                         <div className="expense-detail-part">
                                                             <div className="d-block">
                                                                 <ListItemText primary={expense.description} />
@@ -174,12 +197,6 @@ export default function WalletDetail(props) {
                                                                 <NumberFormat value={expense.amount} displayType={'text'} className="expense-title-size text-danger" thousandSeparator={true} prefix={'$'} />
                                                             </div>
                                                         </div>
-                                                        <TransactionModal
-                                                            expense={expenseList}
-                                                            family={family}
-                                                            wallet={wallet}
-                                                            show={transactionModalShow}
-                                                            onHide={() => setTransactionModalShow(false)} />
                                                     </ListItem>
                                                 </List>
                                             </Collapse>
@@ -201,7 +218,11 @@ export default function WalletDetail(props) {
                                         incomeList && incomeList.map(income =>
                                             <Collapse in={openIncomes} timeout="auto" unmountOnExit>
                                                 <List component="div" disablePadding>
-                                                    <ListItem button className={classes.nested}>
+                                                    <ListItem button onClick={() => {
+                                                        setSelectedExpense(null);
+                                                        setSelectedIncome(income);
+                                                        setTransactionModalShow(true);
+                                                    }} className={classes.nested}>
                                                         <div className="expense-detail-part">
                                                             <div className="d-block">
                                                                 <ListItemText primary={income.description} />
@@ -216,12 +237,7 @@ export default function WalletDetail(props) {
                                                             </div>
                                                         </div>
                                                     </ListItem>
-                                                    <TransactionModal
-                                                        income={incomeList}
-                                                        family={family}
-                                                        wallet={wallet}
-                                                        show={transactionModalShow}
-                                                        onHide={() => setTransactionModalShow(true)} />
+
                                                 </List>
                                             </Collapse>
                                         )

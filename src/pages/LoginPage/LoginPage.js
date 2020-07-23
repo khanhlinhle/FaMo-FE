@@ -13,24 +13,22 @@ export default function LoginPage() {
         const res = await axios.get(`https://localhost:5004/auth/login/facebook?fbToken=${response.accessToken}`);
 
         const { user, token } = res.data.data;
-        console.log(user)
 
         localStorage.setItem("token", token);
+        dispatch({ type: "LOGIN", payload: user });
     };
 
     const responseGoogle = async (response) => {
         const res = await axios.get(`https://localhost:5004/auth/login/google?googleToken=${response.accessToken}`);
 
         const { user, token } = res.data.data;
-        console.log(user)
-
         localStorage.setItem("token", token);
+        dispatch({ type: "LOGIN", payload: user });
     };
 
     const dispatch = useDispatch();
     let history = useHistory();
     const user = useSelector(state => state.user);
-    console.log(user);
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const login = async (e) => {
@@ -40,7 +38,6 @@ export default function LoginPage() {
             method: "POST"
         });
         const { user, token } = res.data.data;
-        console.log(user);
         localStorage.setItem("token", token);
         dispatch({ type: "LOGIN", payload: user });
     };

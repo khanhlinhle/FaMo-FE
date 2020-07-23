@@ -109,6 +109,9 @@ export default function IncomeModal(props) {
                                         </Form.Label>
                                         <div>
                                             <select className="browser-default custom-select" onChange={(e) => handleFamily(e)}>
+                                                <option value="">
+                                                    Chooose your family
+                                                </option>
                                                 {
                                                     familyList && familyList.map(item => <option value={item._id}>{item.name}</option>)
                                                 }
@@ -123,6 +126,9 @@ export default function IncomeModal(props) {
                                         </Form.Label>
                                         <div>
                                             <select className="browser-default custom-select" onChange={(e) => handleWallet(e)}>
+                                                <option value="">
+                                                    Chooose your wallet
+                                                </option>
                                                 {
                                                     walletList && walletList.map(item => <option value={item._id}>{item.type}</option>)
                                                 }
@@ -149,6 +155,9 @@ export default function IncomeModal(props) {
                                         </Form.Label>
                                         <div>
                                             <select className="browser-default custom-select" onChange={(e) => handleCategory(e)}>
+                                                <option value="">
+                                                    Chooose your category
+                                                </option>
                                                 {
                                                     categoriesList && categoriesList.filter(c => c.type === "Income").map(item => <option value={item._id}>{item.name}</option>)
                                                 }
