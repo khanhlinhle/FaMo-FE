@@ -32,10 +32,10 @@ export default function Account(props) {
             {
                 user.data ?
                     <Row className="account-part">
-                        <Col lg={2} md={4} s={12} xs={12}>
+                        <Col lg={3} md={12} s={12} xs={12}>
                             <img src="https://image.freepik.com/free-vector/dog-head-eyeglasses-st-patrick-s-day_68946-375.jpg" className="avatar" />
                         </Col>
-                        <Col lg={{ span: 7, offset: 3 }} md={8} s={12} xs={12}>
+                        <Col lg={9} md={12} s={12} xs={12}>
                             <Container className="testing">
                                 <form noValidate autoComplete="off" className="name-part">
                                     <TextField

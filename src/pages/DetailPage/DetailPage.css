@@ -25,7 +25,7 @@
 }
 
 .wallet-button {
-  font-size: 10px !important;
+  font-size: 10px;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -56,12 +56,18 @@
 }
 
 .avatar {
-  width: 250%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 300px) {
+  .avatar {
+    width: 100%;
+  }
 }
 
 .testing {
   align-items: center;
-  margin: 10% 0 10% 0;
+  margin: 2% 0 0 0;
 }
 
 .name-part {
@@ -80,7 +86,7 @@
 }
 
 .email-part {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .info-button-part {
@@ -207,4 +213,21 @@
   justify-content: flex-end;
   width: 100%;
   padding-right: 15px;
+}
+
+.report-part {
+  display: flex;
+  justify-content: center;
+}
+
+.report-button {
+  padding-right: 10px;
+}
+
+.report-tab {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 1% 0 0 0;
 }

@@ -211,7 +211,7 @@ export default function TransactionModal(props) {
                                         <div>
                                             <select className="browser-default custom-select" onChange={e => setCategory(e.target.value)}>
                                                 {
-                                                    categoriesList && categoriesList.map(item => <option value={item._id} selected={item._id == category}>{item.name}</option>)
+                                                    expense ? categoriesList && categoriesList.filter(c => c.type === "Expense").map(item => <option value={item._id} selected={item._id == category}>{item.name}</option>) : categoriesList.filter(c => c.type === "Income").map(item => <option value={item._id} selected={item._id == category}>{item.name}</option>)
                                                 }
                                             </select>
                                         </div>

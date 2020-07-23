@@ -177,27 +177,27 @@ export default function Report() {
     };
 
     return (
-        <div>
-
+        <div className="report-tab">
             <Tabs defaultActiveKey="month">
                 <Tab eventKey="month" title="Monthly report">
-
-                    <DropdownButton onSelect={handleFamily} title={family ? <span className="wallet-button">{family.name}</span> : <span className="wallet-button">Family</span>}>
-                        {
-                            familyList ? familyList.map(item =>
-                                <DropdownItem eventKey={item.name} key={item._id} >{item.name}</DropdownItem>
-                            ) : <div></div>
-                        }
-                    </DropdownButton>
-
-                    <DropdownButton onSelect={handleMonth} title={<span className="wallet-button">{monthsOfYear[selectedMonth]}</span>}>
-                        {
-                            monthsOfYear.map(item =>
-                                <DropdownItem eventKey={item} key={item}>{item}</DropdownItem>
-                            )
-                        }
-                    </DropdownButton>
-
+                    <Container>
+                        <div className="report-part">
+                            <DropdownButton onSelect={handleFamily} title={family ? <span className="wallet-button">{family.name}</span> : <span className="report-button">Family</span>}>
+                                {
+                                    familyList ? familyList.map(item =>
+                                        <DropdownItem eventKey={item.name} key={item._id} >{item.name}</DropdownItem>
+                                    ) : <div></div>
+                                }
+                            </DropdownButton>
+                            <DropdownButton onSelect={handleMonth} title={<span className="wallet-button">{monthsOfYear[selectedMonth]}</span>}>
+                                {
+                                    monthsOfYear.map(item =>
+                                        <DropdownItem eventKey={item} key={item}>{item}</DropdownItem>
+                                    )
+                                }
+                            </DropdownButton>
+                        </div>
+                    </Container>
                     <Row>
                         <Col lg={6} md={6} s={12} xs={12}>
                             <div>Monthy Incomes</div>

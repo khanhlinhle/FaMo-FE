@@ -15,7 +15,7 @@ export default function Transaction() {
                     <Card>
                         <Card.Img variant="top" src="https://image.freepik.com/free-vector/receipt-bill-invoice-receipt-mobile-phone-cellphone-illustration-isolated-flat-cartoon_101884-447.jpg" className="wallet-icon" />
                         <Card.Body>
-                            <Button variant="danger" className="wallet-button" onClick={() => setExpenseModalShow(true)}>Expense</Button>
+                            <Button variant="danger" className="wallet-button" style={{ fontSize: "15px" }} onClick={() => setExpenseModalShow(true)}>Expense</Button>
                             <ExpenseModal
                                 show={expenseModalShow}
                                 onHide={() => setExpenseModalShow(false)}
@@ -27,7 +27,7 @@ export default function Transaction() {
                     <Card>
                         <Card.Img variant="top" src="https://cdn.discordapp.com/attachments/716959709646684261/733565252809261097/Linh-01.jpg" />
                         <Card.Body>
-                            <Button variant="info" className="wallet-button" onClick={() => setIncomeModalShow(true)}>Income</Button>
+                            <Button variant="info" className="wallet-button" style={{ fontSize: "15px" }} onClick={() => setIncomeModalShow(true)}>Income</Button>
                             <IncomeModal
                                 show={incomeModalShow}
                                 onHide={() => setIncomeModalShow(false)}

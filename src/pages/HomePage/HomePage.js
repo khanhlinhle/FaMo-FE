@@ -1,6 +1,6 @@
 import React from 'react';
 import "./HomePage.css";
-import { Row, Container, Col, Button } from "react-bootstrap";
+import { Row, Container, Col, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom"
 
 export default function HomePage() {
@@ -36,30 +36,30 @@ export default function HomePage() {
             <div className="product-part">
                 <Container>
                     <Row>
-                        <Col lg={3} md={3} sm={3} xs={12}>
+                        <Col lg={3} md={12} s={12} xs={12}>
                             <img src="https://image.freepik.com/free-vector/reading-list-concept-illustration_114360-1090.jpg" className="body-image" />
                         </Col>
-                        <Col lg={{ span: 7, offset: 2 }} md={{ span: 7, offset: 2 }} sm={{ span: 7, offset: 2 }} xs={12} off>
+                        <Col lg={{ span: 7, offset: 2 }} md={12} s={12} xs={12} off>
                             <p className="body-text">
                                 <strong>Family Money</strong> helps you get just about everything managed. A smart, easy-to-use website that allows you to track and categorize your family in-and-out money.
                            </p>
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={{ span: 7, offset: 0 }} md={{ span: 7, offset: 0 }} sm={{ span: 7, offset: 0 }} xs={12} off>
+                        <Col lg={{ span: 7, offset: 0 }} md={12} s={12} xs={12} off>
                             <p className="body-text">
                                 <strong>Family Money</strong> helps you set budgets that are easy to stick to, based on your family daily spending.
                            </p>
                         </Col>
-                        <Col lg={5} md={5} sm={5} xs={12}>
+                        <Col lg={5} md={12} s={12} xs={12}>
                             <img src="https://image.freepik.com/free-vector/tiny-man-woman-with-big-open-wallet_74855-5943.jpg" className="body-image" />
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={3} md={3} sm={3} xs={12}>
+                        <Col lg={3} md={12} s={12} xs={12}>
                             <img src="https://image.freepik.com/free-vector/statistical-data-abstract-paper-tablet_3446-313.jpg" className="body-image" />
                         </Col>
-                        <Col lg={{ span: 7, offset: 2 }} md={{ span: 7, offset: 2 }} sm={{ span: 7, offset: 2 }} xs={12} off>
+                        <Col lg={{ span: 7, offset: 2 }} md={12} s={12} xs={12} off>
                             <p className="body-text">
                                 <strong>Family Money</strong> helps you have a clear view on your spending patterns. Understanding where your family money comes and goes with easy-to-read graphs.
                            </p>
