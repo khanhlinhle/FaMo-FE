@@ -73,7 +73,7 @@ export default function WalletDetail(props) {
         };
 
         try {
-            const res = await axios.get(`${process.env.REACT_APP_URL}/${family._id}/wallets/${wallet._id}/expenses`, {
+            const res = await axios.get(`${process.env.REACT_APP_URL}/family/${family._id}/wallets/${wallet._id}/expenses`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
