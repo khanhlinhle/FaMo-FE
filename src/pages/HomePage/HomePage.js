@@ -9,7 +9,7 @@ export default function HomePage() {
             <div className="banner-part">
                 <Container>
                     <Row>
-                        <Col md={5} xs={12}>
+                        <Col lg={5} md={5} s={12} xs={12}>
                             <img src="https://www.equifaira.com/img/pig.png" />
                             <h3 className="banner-text-left">
                                 <span>Using </span>
@@ -17,7 +17,7 @@ export default function HomePage() {
                                 <span> to farm more</span>
                             </h3>
                         </Col>
-                        <Col md={6} xs={12} className="banner-text">
+                        <Col lg={{ span: 6, offset: 1 }} md={{ span: 6, offset: 1 }} s={12} xs={12} className="banner-text">
                             <h1 className="banner-title">
                                 Family Money
                         </h1>
