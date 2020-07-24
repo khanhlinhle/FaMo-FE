@@ -28,6 +28,7 @@ export default function CreateAccount() {
             },
         });
         console.log(res);
+        alert("Your account is ready to log in");
     };
 
     return (
