@@ -208,14 +208,14 @@ export default function Report() {
                                         {
                                             label: "Incomes",
                                             backgroundColor: [
-                                                "#FFFF00",
-                                                "#33FF33",
-                                                "#33CC33",
-                                                "#00CC99",
-                                                "#00CCCC",
-                                                "#00CCFF",
-                                                "#3399FF",
-                                                "#000099"
+                                                "#F29E4C",
+                                                "#F1C453",
+                                                "#EFEA5A",
+                                                "#B9E769",
+                                                "#83E377",
+                                                "#16D893",
+                                                "#0DB39E",
+                                                "#048BA8"
                                             ],
                                             data: monthlyIncomes.map(i => i.amount)
                                         }
@@ -238,14 +238,14 @@ export default function Report() {
                                         {
                                             label: "Expenses",
                                             backgroundColor: [
-                                                "#DD0000",
-                                                "#CC0066",
-                                                "#990066",
-                                                "#FF3300",
-                                                "#FF0099",
-                                                "#990099",
-                                                "#330033",
-                                                "#0066CC"
+                                                "#277DA1",
+                                                "#577590",
+                                                "#4D908E",
+                                                "#43AA8B",
+                                                "#90BE6D",
+                                                "#F9C74F",
+                                                "#F9844A",
+                                                "#F8961E"
                                             ],
                                             data: monthlyExpenses.map(i => i.amount)
                                         }
